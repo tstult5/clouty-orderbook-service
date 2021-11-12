@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"net/http"
-	//"github.com/tstult5/clouty-orderbook-service/api/responses"
 )
 
 func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {

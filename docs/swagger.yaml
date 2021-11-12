@@ -1,0 +1,90 @@
+basePath: /
+definitions:
+  models.Order:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      order_price:
+        type: number
+      order_type:
+        type: string
+      ordername:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.OrderCreate:
+    properties:
+      order_price:
+        type: number
+      order_type:
+        type: string
+      ordername:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Clouty Orderbook example
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Clouty OrderBook API
+  version: "1.0"
+paths:
+  /order/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of order by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Get details of order by id
+      tags:
+      - orders
+  /order/create:
+    post:
+      consumes:
+      - application/json
+      description: Create new order sell / buy type
+      parameters:
+      - description: Order Data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/models.OrderCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Create new Order
+      tags:
+      - orders
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all orders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Get details of all orders
+      tags:
+      - orders
+swagger: "2.0"

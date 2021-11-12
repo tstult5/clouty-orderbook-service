@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    container_name: clouty_orderbook
+    build: .
+    ports:
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - api:/Users/thomas.stultz/clouty-orderbook-service
+      - db:/Users/thomas.stultz/clouty-orderbook-service/db/
+
+    #depends_on:
+      #- clouty_realDB          # Uncomment this when using a proper db
+    #networks:
+      #- clouty  #when db container needed
+volumes:
+  api:
+  db:
