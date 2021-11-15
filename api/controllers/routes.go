@@ -17,5 +17,6 @@ func (s *Server) initializeRoutes() {
 	s.Router.HandleFunc("/order/create", middlewares.SetMiddlewareJSON(s.CreateOrder)).Methods("POST")
 //	s.Router.HandleFunc("/order/{id}", middlewares.SetMiddlewareJSON(s.UpdateOrder)).Methods("PUT")
 //	s.Router.HandleFunc("/order/{id}", middlewares.SetMiddlewareJSON(s.DeleteOrder)).Methods("DELETE")
+  s.Router.HandleFunc("/order/{ordername}", middlewares.SetMiddlewareJSON(s.FindOrderBookByName)).Methods("GET")
   s.Router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 }

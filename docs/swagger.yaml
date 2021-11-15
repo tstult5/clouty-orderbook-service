@@ -72,6 +72,28 @@ paths:
       summary: Create new Order
       tags:
       - orders
+  /orderbooks/{ordername}:
+    get:
+      consumes:
+      - application/json
+      description: Get aggregation of orders by orderName
+      parameters:
+      - description: Order Name
+        in: body
+        name: ordername
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Get aggregation of orders by orderName
+      tags:
+      - orderBooks
   /orders:
     get:
       consumes:

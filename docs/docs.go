@@ -85,6 +85,40 @@ var doc = `{
                 }
             }
         },
+        "/orderbooks/{ordername}": {
+            "get": {
+                "description": "Get aggregation of orders by orderName",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orderBooks"
+                ],
+                "summary": "Get aggregation of orders by orderName",
+                "parameters": [
+                    {
+                        "description": "Order Name",
+                        "name": "ordername",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Order"
+                        }
+                    }
+                }
+            }
+        },
         "/orders": {
             "get": {
                 "description": "Get details of all orders",

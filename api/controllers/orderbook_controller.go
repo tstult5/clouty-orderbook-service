@@ -13,6 +13,20 @@ import (
 )
 
 
+func (server *Server) FindOrderBookByName(w http.ResponseWriter, r *http.Request) {
+  var err error
+	vars := mux.Vars(r)
+  ordername := vars["ordername"]
+  order := models.Order{}
+  fetchedOrderBook, err := order.FindOrderBookByName(server.DB, ordername)
+  if err != nil {
+    responses.ERROR(w, http.StatusBadRequest, err)
+    return
+  }
+  responses.JSON(w, http.StatusOK, fetchedOrderBook)
+}
+
+
 func (server *Server) GetOrders(w http.ResponseWriter, r *http.Request) {
   var err error
 	order := models.Order{}

@@ -23,8 +23,12 @@ type OrderCreate struct {
   OrderType string    `gorm:"default:nil" json:"order_type"`
 }
 
-type OrderBookz struct {
+type OrderBook struct {
   OrderBookName string `gorm:"size:255;not null;unique" json:"orderbook_name"`
+  buy_price float32
+  buy_count uint32
+  sell_count uint32
+  sell_price float32
   //price, count, and amount.
 }
 
@@ -69,7 +73,7 @@ func (o *Order) SaveOrder(db *gorm.DB) (*Order, error) {
 	return o, nil
 }
 
-// GetOrders godoc
+// FindAllOrders godoc
 // @Summary Get details of all orders
 // @Description Get details of all orders
 // @Tags orders
@@ -87,7 +91,37 @@ func (u *Order) FindAllOrders(db *gorm.DB) (*[]Order, error) {
 	return &orders, err
 }
 
-// GetOrder godoc
+
+// FindAllOrders godoc
+// @Summary Get aggregation of orders by orderName
+// @Description Get aggregation of orders by orderName
+// @Tags orderBooks
+// @Accept  json
+// @Produce  json
+// @Param ordername path string true "Order Name"
+// @Success 200 {object} Order
+// @Router /orderbooks/{ordername} [get]
+func (u *Order) FindOrderBookByName(db *gorm.DB, ordername string) (*OrderBook, error) {
+	var err error
+  orderbook := OrderBook{}
+  orders := []Order{}
+	err = db.Debug().Model(&Order{}).Where("OrderName = ?", ordername).Find(&orders).Error
+  //TO DO : Questions on the orderbook model - what structure should the orderbok have ?
+	if err != nil {
+    for _, order := range orders {
+       orderbook.OrderBookName = order.OrderName
+       orderbook.buy_count = 5
+       orderbook.sell_count =5
+       orderbook.sell_price = 2.55
+       orderbook.buy_price = 2.53
+   }
+		return &orderbook, err
+	}
+	return &orderbook, err
+}
+
+
+// FindOrderByID godoc
 // @Summary Get details of order by id
 // @Description Get details of order by id
 // @Tags orders
